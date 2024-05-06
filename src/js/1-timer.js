@@ -65,6 +65,9 @@ function updateTimer(time) {
 
 startBtn.addEventListener('click', event => {
   startBtn.disabled = true;
+
+  document.querySelector('#datetime-picker').disabled = true;
+
   setInterval(() => {
     let timeLeft = userSelectedDate.getTime() - Date.now();
     if (timeLeft > 0) {
@@ -74,11 +77,3 @@ startBtn.addEventListener('click', event => {
 });
 
 flatpickr('#datetime-picker', options);
-
-setInterval(() => {
-  if (Date.now() > userSelectedDate.getTime()) {
-    startBtn.disabled = true;
-  } else {
-    startBtn.disabled = false;
-  }
-}, 100);
