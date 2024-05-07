@@ -30,6 +30,8 @@ const options = {
         backgroundColor: 'red',
         progressBarColor: '#ff91a4',
         message: 'Please choose a date in the future',
+        timeout: 2000,
+        title: 'Error',
       });
       startBtn.disabled = true;
     } else {
