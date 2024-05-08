@@ -9,6 +9,7 @@ import 'flatpickr/dist/flatpickr.min.css';
 
 let userSelectedDate = new Date();
 const startBtn = document.querySelector('button[data-start]');
+const timeSelector = document.querySelector('#datetime-picker');
 const day = document.querySelector('span[data-days]');
 const hour = document.querySelector('span[data-hours]');
 const minute = document.querySelector('span[data-minutes]');
@@ -68,12 +69,24 @@ function updateTimer(time) {
 startBtn.addEventListener('click', event => {
   startBtn.disabled = true;
 
-  document.querySelector('#datetime-picker').disabled = true;
+  timeSelector.disabled = true;
 
-  setInterval(() => {
+  let timerInterval = setInterval(() => {
     let timeLeft = userSelectedDate.getTime() - Date.now();
-    if (timeLeft > 0) {
-      updateTimer(convertMs(timeLeft));
+    updateTimer(convertMs(timeLeft));
+    if (timeLeft < 1000) {
+      clearInterval(timerInterval);
+      timeSelector.disabled = false;
+
+      iziToast.success({
+        theme: 'dark',
+        position: 'topRight',
+        messageColor: '#FFFFFF',
+        backgroundColor: '#59A10D',
+        progressBarColor: '#326101',
+        message: `Your timer is done!`,
+        timeout: 2000,
+      });
     }
   }, 1000);
 });
